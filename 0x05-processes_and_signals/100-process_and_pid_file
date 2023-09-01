@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# bash script
+cleanup_and_exit()
+{
+    echo "Cleaning up and exiting..."
+    rm -f /var/run/myscript.pid
+    exit 0
+}
+echo $$ > /var/run/myscript.pid
+trap 'echo "I hate the kill command"; cleanup_and_exit' SIGTERM
+trap 'echo "Y U no love me?!"; cleanup_and_exit' SIGINT
+trap cleanup_and_exit SIGQUIT
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
