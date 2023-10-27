@@ -1,6 +1,6 @@
-# installs puppet-lint package
+#this code installs the puppet-lint package
 
-package {'flask':
+package { 'flask':
   ensure   => '2.1.0',
-  provider => 'pip3'
+  provider => 'pip3',
 }
