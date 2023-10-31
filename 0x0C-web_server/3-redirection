@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Install nginx web server
+
+# Update the package list on the system
+sudo apt -y update
+
+# Install nginx
+sudo apt -y install nginx
+
+# Create a custom HTML file with "Hello World!" for default website
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.html'
+
+# Adding a new location /redirect_me Performing a 301 permanent redirect to the specified YouTube URL
+sudo sed -i '/^}$/i \ \n\tlocation \/redirect_me {\n\t\trewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n\t}' /etc/nginx/sites-available/default
+
+# Start automatically nginxt at boot
+sudo systemctl enable nginx
+
+# Start nginx
+sudo service nginx start
