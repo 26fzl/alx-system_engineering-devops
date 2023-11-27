@@ -12,4 +12,4 @@ if __name__ == "__main__":
     compl = [d.get("title") for d in todo if d.get("completed") is True]
     print("Employee {} is done with tasks({}/{}):".format(
         user.get("name"), len(compl), len(todo)))
-    [print("\t {}".format(s)) for m s compl]
+    [print("\t {}".format(s)) for s compl]
