@@ -1,16 +1,21 @@
 #!/usr/bin/python3
-''' hot articles '''
+""" hot articles """
 import requests
 
 
 def top_ten(subreddit):
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    response = requests.get(url, headers={"User-Agent": "fzl_26"})
-    if response.status_code != 200:
-        print(None)
+    """Print the titles of the 10 hottest posts on a given subreddit."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "fzl_26"
+    }
+    params = {
+        "limit": 10
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
+        print("None")
         return
-    else:
-        data = response.json()
-        for x in range(10):
-            print(data["data"]["children"][x]['data']['title'])
-        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
