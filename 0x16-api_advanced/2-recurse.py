@@ -1,22 +1,26 @@
 #!/usr/bin/python3
 ''' The Reddit API '''
 import requests
+after = None
 
 
-def recurse(subreddit, list=[], after="", counter=0):
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    params = {"after": after, "counter": counter, "limit": 100}
-    response = requests.get(url,
-                            headers={"User-Agent": "fzl_26"},
-                            params=params)
-    if response.status_code != 200:
-        return None
+def recurse(subreddit, hot_list=[]):
+    """returning top ten titles """
+    global after
+    user_agent = {'User-Agent': 'fzl_26'}
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    parameters = {'after': after}
+    results = requests.get(url, params=parameters, headers=user_agent,
+                           allow_redirects=False)
 
-    results = response.json().get("data")
-    after = results.get("after")
-    counter += results.get("dist")
-    for x in results.get("children"):
-        list.append(x.get("data").get("title"))
-    if after is not None:
-        return recurse(subreddit, list, after, counter)
-    return list
+    if results.status_code == 200:
+        after_data = results.json().get("data").get("after")
+        if after_data is not None:
+            after = after_data
+            recurse(subreddit, hot_list)
+        all_titles = results.json().get("data").get("children")
+        for title_ in all_titles:
+            hot_list.append(title_.get("data").get("title"))
+        return hot_list
+    else:
+        return (None)

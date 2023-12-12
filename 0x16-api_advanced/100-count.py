@@ -5,7 +5,7 @@ import requests
 
 def count_words(subreddit, word_list, f_list=[], after=None):
     user_agent = {"User-Agent": "fzl_26"}
-    url = f"http://www.reddit.com/r/{subreddit}/hot.json?after={after}"
+    url = 'https://www.reddit.com/r/{}/hot/.json'.format(subreddit)
     pst = requests.get(url, headers=user_agent)
     if after is None:
         word_list = [word.lower() for word in word_list]
