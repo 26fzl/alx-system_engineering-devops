@@ -4,7 +4,7 @@ import requests
 
 
 def top_ten(subreddit):
-     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     response = requests.get(url, headers={"User-Agent": "fzl_26"})
     if response.status_code != 200:
         print(None)
