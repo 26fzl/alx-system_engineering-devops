@@ -4,7 +4,7 @@ import requests
 
 
 def recurse(subreddit, list=[], after="", counter=0):
-    url = "https://www.reddit.com/r/{subreddit}/hot.json"
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     params = {"after": after, "counter": counter, "limit": 100}
     response = requests.get(url,
                             headers={"User-Agent": "fzl_26"},
