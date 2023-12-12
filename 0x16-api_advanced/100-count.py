@@ -45,9 +45,9 @@ def count_words(subreddit, word_list, word_count={}, after=None):
                     word_count[word] += 1
 
     if not info.get("data").get("after"):
-        sorted_counts = sorted(word_count.items(), key=lambda kv: kv[0])
         sorted_counts = sorted(word_count.items(),
-                               key=lambda kv: kv[1], reverse=True)
+                               key=lambda kv: (kv[1], kv[0].lower()),
+                               reverse=True)
         [print('{}: {}'.format(k, v)) for k, v in sorted_counts if v != 0]
     else:
         return count_words(subreddit, word_list, word_count,
