@@ -4,8 +4,8 @@ import requests
 
 
 def top_ten(subreddit):
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    response = requests.get(url, headers={"User-Agent"})
+    url = "https://www.reddit.com/r/{subreddit}/hot.json"
+    response = requests.get(url, headers={"User-Agent": "fzl_26"})
     if response.status_code != 200:
         print(None)
         return

@@ -4,10 +4,10 @@ import requests
 
 
 def recurse(subreddit, list=[], after="", counter=0):
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    url = "https://www.reddit.com/r/{subreddit}/hot.json"
     params = {"after": after, "counter": counter, "limit": 100}
     response = requests.get(url,
-                            headers={"User-Agent"},
+                            headers={"User-Agent": "fzl_26"},
                             params=params)
     if response.status_code != 200:
         return None
