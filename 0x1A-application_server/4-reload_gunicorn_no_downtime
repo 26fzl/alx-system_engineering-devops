@@ -1,21 +1,4 @@
 #!/usr/bin/env bash
+# Gracefully reloads Gunicorn.
 
-LOG_FILE="/var/log/gunicorn_reload.log"
-PID_FILE="/var/run/gunicorn.pid"
-
-# Check if the Gunicorn process is running
-if pgrep gunicorn > /dev/null; then
-    # Get the process ID from the PID file
-    if [ -f "$PID_FILE" ]; then
-        PID=$(cat "$PID_FILE")
-
-        # Reload Gunicorn gracefully
-        echo "Reloading Gunicorn..." >> "$LOG_FILE"
-        kill -HUP "$PID" >> "$LOG_FILE" 2>&1
-        echo "Gunicorn reloaded." >> "$LOG_FILE"
-    else
-        echo "Gunicorn PID file not found. Unable to reload." >> "$LOG_FILE"
-    fi
-else
-    echo "Gunicorn is not running." >> "$LOG_FILE"
-fi
+ps aux | grep gunicorn | awk '{ print $2 }' | xargs kill -HUP
